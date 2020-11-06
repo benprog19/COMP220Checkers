@@ -8,7 +8,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Board checkers = new Board(8, 8);
-		System.out.println("Bye Ben!");
+		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
