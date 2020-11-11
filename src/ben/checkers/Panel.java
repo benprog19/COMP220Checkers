@@ -1,17 +1,17 @@
-package ben.checkers.gui;
+package ben.checkers;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-public class Panel extends JFrame {
+class Panel extends JFrame {
 
 	Color color;
 	
 	int value = 0;
 	
-	public Panel() {
+	Panel() {
 		if (value == 0) {
 			color = Color.GRAY;
 			value++;

@@ -1,12 +1,10 @@
-package ben.checkers.main;
+package ben.checkers;
 
 import javax.swing.SwingUtilities;
 
-import ben.checkers.gui.Board;
+class Main {
 
-public class Main {
-
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		Board checkers = new Board(8, 8);
 		
 		SwingUtilities.invokeLater(new Runnable() {

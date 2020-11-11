@@ -1,4 +1,4 @@
-package ben.checkers.gui;
+package ben.checkers;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,9 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import ben.checkers.team.Team;
-
-public class Board {
+class Board {
 
 	private JFrame frame;
 	private JPanel gui;
@@ -40,7 +38,7 @@ public class Board {
 	Team redTeam;
 	Team blackTeam;
 
-	public Board(int rows, int cols) {
+	Board(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
 
@@ -64,7 +62,7 @@ public class Board {
 		initializeGUI();
 	}
 
-	public void initializeGUI() {
+	void initializeGUI() {
 		gui.setBorder(new EmptyBorder(3, 3, 3, 3));
 		JToolBar tools = new JToolBar();
 		tools.setFloatable(false);
@@ -127,19 +125,19 @@ public class Board {
 		frame.add(gui);
 	}
 
-	public Team getRedTeam() {
+	Team getRedTeam() {
 		return redTeam;
 	}
 
-	public Team getBlackTeam() {
+	Team getBlackTeam() {
 		return blackTeam;
 	}
 
-	public JFrame getFrame() {
+	JFrame getFrame() {
 		return frame;
 	}
 
-	public void display(boolean display) {
+	void display(boolean display) {
 
 		// Create and set up the window.
 
@@ -152,11 +150,11 @@ public class Board {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public Button[][] getButtons() {
+	Button[][] getButtons() {
 		return buttons;
 	}
 
-	public int[] originalBackgroundColor(int i, int j) {
+	int[] originalBackgroundColor(int i, int j) {
 		int[] colors = new int[3];
 		if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
 			colors[0] = 176;
@@ -170,7 +168,7 @@ public class Board {
 		return colors;
 	}
 
-	public void resetColoring() {
+	void resetColoring() {
 		for (int i = 0; i < getButtons().length; i++) {
 			for (int j = 0; j < getButtons()[i].length; j++) {
 				getButtons()[i][j].getButtonReference().setBackground(new Color(originalBackgroundColor(i, j)[0],
@@ -181,11 +179,12 @@ public class Board {
 		}
 	}
 	
-	public boolean canJump() {
+	boolean canJump() {
 		return true;
 	}
 	
-	public void jump() {
+	@Deprecated
+	void jump() {
 		
 	}
 }

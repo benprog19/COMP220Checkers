@@ -1,4 +1,4 @@
-package ben.checkers.gui;
+package ben.checkers;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -8,9 +8,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import ben.checkers.team.Team;
-
-public class Button {
+class Button {
 
 	int x;
 	int y;
@@ -22,7 +20,7 @@ public class Button {
 	Button suggested;
 	Button prevButton;
 
-	public Button(int x, int y, JButton button, Team team, Board checkersMenu) {
+	Button(int x, int y, JButton button, Team team, Board checkersMenu) {
 		this.x = x;
 		this.y = y;
 		this.button = button;
@@ -32,46 +30,46 @@ public class Button {
 		this.highlighted = false;
 	}
 
-	public int getX() {
+	int getX() {
 		return x;
 	}
 
-	public int getY() {
+	int getY() {
 		return y;
 	}
 
-	public JButton getButtonReference() {
+	JButton getButtonReference() {
 		return button;
 	}
 
-	public Team getTeam() {
+	Team getTeam() {
 		return team;
 	}
 
-	public void setX(int x) {
+	void setX(int x) {
 		this.x = x;
 	}
 
-	public void setY(int y) {
+	void setY(int y) {
 		this.y = y;
 	}
 
-	public void setButtonReference(JButton button) {
+	void setButtonReference(JButton button) {
 		this.button = button;
 	}
 
-	public void setTeam(Team team) {
+	void setTeam(Team team) {
 		this.team = team;
 	}
 
-	public boolean hasTeam() {
+	boolean hasTeam() {
 		if (this.team != null) {
 			return true;
 		}
 		return false;
 	}
 
-	public void setHighlighted(boolean highlight) {
+	void setHighlighted(boolean highlight) {
 		this.highlighted = highlight;
 		if (highlight) {
 			button.setBackground(new Color(255, 255, 255));
@@ -82,41 +80,41 @@ public class Button {
 		}
 	}
 	
-	public boolean isHighlighted() {
+	boolean isHighlighted() {
 		return highlighted;
 	}
 	
-	public void setSuggested(Button suggested) {
+	void setSuggested(Button suggested) {
 		this.suggested = suggested;
 	}
 	
-	public boolean isSuggested() {
+	boolean isSuggested() {
 		if (this.suggested != null) {
 			return false;
 		} 
 		return true;
 	}
 	
-	public Button getSuggested() {
+	Button getSuggested() {
 		return suggested;
 	}
 	
-	public void setPreviousButton(Button button) {
+	void setPreviousButton(Button button) {
 		this.prevButton = button;
 	}
 	
-	public boolean hasPrevious() {
+	boolean hasPrevious() {
 		if (prevButton != null) {
 			return true;
 		}
 		return false;
 	}
 	
-	public Button getPrevious() {
+	Button getPrevious() {
 		return prevButton;
 	}
 
-	public void listen() {
+	void listen() {
 		Button b = this;
 		button.addActionListener(new ActionListener() {
 			
@@ -193,7 +191,7 @@ public class Button {
 		});
 	}
 
-	public Board getCheckerBoard() {
+	Board getCheckerBoard() {
 		return checkersMenu;
 	}
 

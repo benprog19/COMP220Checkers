@@ -1,20 +1,20 @@
-package ben.checkers.team;
+package ben.checkers;
 
-public class Team {
+class Team {
 
 	String name;
 	int checkers;
 	
-	public Team(String name) {
+	Team(String name) {
 		this.name = name;
 		this.checkers = 12;
 	}
 	
-	public String getName() {
+	String getName() {
 		return name;
 	}
 	
-	public int getCheckers() {
+	int getCheckers() {
 		return checkers;
 	}
 	
