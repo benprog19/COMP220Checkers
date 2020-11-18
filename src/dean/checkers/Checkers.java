@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Checkers {
 
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		try {
 			Board board = new Board();
 			System.out.println(board.toString());

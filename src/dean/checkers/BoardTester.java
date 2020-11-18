@@ -10,12 +10,12 @@ public class BoardTester {
 
 
 	 
-	@Test public void PieceTest()
+	@Test void PieceTest()
 	{	
 	final Piece  checker = new Piece();
 		assertEquals(' ',checker.getColor());
 	}
-	@Test public void BoardTest()
+	@Test void BoardTest()
 	{
 		Board board = new Board();
 		assertEquals(board.pieceAt(2, 1).getColor(),'R');
@@ -25,18 +25,18 @@ public class BoardTester {
 		assertEquals(board.pieceAt(5, 0).getColor(),'B');
 		assertEquals(board.pieceAt(5, 0).isKing(),false);
 	}
-	@Test public void PieceWithColorTest()
+	@Test void PieceWithColorTest()
 	{
 		final Piece  checker = new Piece('G');
 		assertEquals('G',checker.getColor());
 	}
-	@Test public void PieceWithColorAndKing()
+	@Test void PieceWithColorAndKing()
 	{
 		final Piece  checker = new Piece('G',true);
 		assertEquals('G',checker.getColor());
 		assertEquals(true,checker.isKing());
 	}
-	@Test public void jumpTest()
+	@Test void jumpTest()
 	{
 		try {
 		Board board = new Board();

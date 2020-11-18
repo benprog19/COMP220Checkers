@@ -1,21 +1,21 @@
-package team.checkers.main;
+package team.checkers;
 
 import javax.swing.SwingUtilities;
 
 public class Main {
 
-//	public static void main(String[] args) {
-//		Board checkers = new Board(8, 8);
-//		
+	public static void main(String[] args) {
+		Board board = new Board(true);
+		
 //		SwingUtilities.invokeLater(new Runnable() {
 //
 //			@Override
 //			public void run() {
-//				checkers.display(true);
+//				board.getMenu().display(true);
 //			}
 //
 //		});
-//
-//	}
+
+	}
 
 }

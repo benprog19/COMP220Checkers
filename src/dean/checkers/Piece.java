@@ -26,25 +26,24 @@ private boolean King;
 		this.King = other.King;
 	}
 	
-	public void setColor(char color)
+	void setColor(char color)
 	{
 		this.color = color;
 	}
-	
-	public char getColor()
+	char getColor()
 	{
 		return this.color;
 	}
 	
-	public void setKing(boolean b)
+	void setKing(boolean b)
 	{
 		this.King= b;
 	}
-	public boolean isKing()
+	boolean isKing()
 	{
 		return King;
 	}
-	public char oppositeColor() throws Exception
+	char oppositeColor() throws Exception
 	{
 		if(this.color=='B')
 		{

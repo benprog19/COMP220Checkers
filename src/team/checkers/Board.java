@@ -1,23 +1,14 @@
-package dean.checkers;
+package team.checkers;
+
 import java.util.ArrayList;
 
-/**
- * This class is used for the checker board
- */
-class Board {
 
-	//the board
+public class Board {
+	
 	private Piece[][] board;
-
-
-
-	/**
-	 * @author Dean O'Toole
-	 * @summary Board() constructs a new board
-	 */
-	Board()
-	{
-		//we use the Piece type because we need to store both color and if the Piece is a King
+	private MenuInterface menu;
+	
+	public Board(boolean display) {
 		this.board = new Piece[8][8];
 
 		/** lines 21 - 29 constructs a board of empty Pieces */
@@ -32,26 +23,29 @@ class Board {
 		/**Set the color of the pieces for the playing both R in the
 		 *  North B in the South lines 33 - 49
 		 */
-		for(int i = 0; i < 8; i++ )
-		{
+		for(int i = 0; i < 8; i++ ) {
 			for(int j = 0; j < 8; j++ )
 			{
 
 				if(i%2 == 0 && j%2 ==1)
 				{
 
-					board[i][j].setColor(colorCheck(i));
+					board[i][j].setColor(colorCheck(j));
 				}
 				else if(i%2==1 && j%2==0)
 				{
-					board[i][j].setColor(colorCheck(i));
+					board[i][j].setColor(colorCheck(j));
 				}
 
 			}
 		}
+		menu = new MenuInterface(this, display);
 	}
-
-
+	
+	public MenuInterface getMenu() {
+		return menu;
+	}
+	
 	/**
 	 * @author Dean O'Toole
 	 * @param i - row number
@@ -60,8 +54,7 @@ class Board {
 	 * 			Red is Rows 5-7
 	 * 			Rows 3-4 are empty so they are filled with ' '
 	 */
-	char colorCheck(int i)
-	{
+	public char colorCheck(int i) {
 
 		if(i < 3)
 		{
@@ -81,9 +74,7 @@ class Board {
 	 *  Prints the Current State of the Board
 	 */
 	@Override
-	public
-	String toString()
-	{
+	public String toString() {
 		String ans = "";
 		for(int i = 0; i < 8; i++)
 		{
@@ -111,8 +102,7 @@ class Board {
 	 * 
 	 * finds out where the player wants the selected piece to jump to and takes pieces jump over out
 	 */
-	void jump(int i, int j, int k, int l, ArrayList<int[]> points)
-	{
+	public void jump(int i, int j, int k, int l, ArrayList<int[]> points) {
 
 		for(int groupNum = 0; groupNum < points.size();groupNum++)
 		{
@@ -154,6 +144,32 @@ class Board {
 
 	}
 
+//	public ArrayList<int[]> canJump2(int i, int j) {
+//		ArrayList<int[]> points = new ArrayList<>();
+//		Piece piece = pieceAt(i, j);
+//		if (piece.getColor() == 'R') {
+//			if (j < 7) {
+//				if (i < 7) {
+//					if (!piece.isKing()) {
+//						int[] n = new int[2];
+//						n[0] = i+1;
+//						n[1] = j+1;
+//						points.add(n);
+//					}
+//				} 
+//				if (i > 0) {
+//					if (!piece.isKing()) {
+//						int[] n = new int[2];
+//						n[0] = i+1;
+//						n[1] = j+1;
+//						points.add(n);
+//					}
+//				}
+//			}
+//		}
+//		return points;
+//	}
+	
 	/**
 	 * 
 	 * @param i row position of selected piece
@@ -164,8 +180,7 @@ class Board {
 	 * @return returns a boolean if the selected piece can move to the selected point
 	 * @throws Exception if the selected piece is any color other than 'R' or 'B'
 	 * */
-	ArrayList<int[]> canJump(int i,int j) throws Exception
-	{
+	public ArrayList<int[]> canJump(int i,int j) throws Exception {
 		ArrayList<int[]> points = new ArrayList<>();
 
 		if(board[i][j].isKing())
@@ -454,6 +469,22 @@ class Board {
 			pieceAt(i,j).setKing(true);
 		}
 	}
-
-
+	
+	public Piece[][] pieces() {
+		return board;
+	}
+	
+	public ArrayList<Piece> getSelectedPieces() {
+		ArrayList<Piece> pieces = new ArrayList<>();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				Piece piece = pieceAt(i, j);
+				System.out.print("[" + i + "," + j + "]: " + (piece.isHighlighted() ? "high" : "") + (piece.isSelected() ? "sel" : ""));
+				if (piece.isSelected()) {
+					pieces.add(piece);
+				}
+			}
+		}
+		return pieces;
+	}
 }
