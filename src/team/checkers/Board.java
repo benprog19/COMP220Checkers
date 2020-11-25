@@ -30,11 +30,11 @@ public class Board {
 				if(i%2 == 0 && j%2 ==1)
 				{
 
-					board[i][j].setColor(colorCheck(j));
+					board[i][j].setColor(colorCheck(i));
 				}
 				else if(i%2==1 && j%2==0)
 				{
-					board[i][j].setColor(colorCheck(j));
+					board[i][j].setColor(colorCheck(i));
 				}
 
 			}

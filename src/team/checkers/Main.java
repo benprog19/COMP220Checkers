@@ -1,21 +1,16 @@
 package team.checkers;
 
-import javax.swing.SwingUtilities;
-
 public class Main {
-
+	
+	private static Game game;
+	
 	public static void main(String[] args) {
 		Board board = new Board(true);
-		
-//		SwingUtilities.invokeLater(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				board.getMenu().display(true);
-//			}
-//
-//		});
-
+		game = new Game(board);
+	}
+	
+	public static Game getGame() {
+		return game;
 	}
 
 }
