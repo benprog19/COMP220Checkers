@@ -10,6 +10,9 @@ public class Piece {
 	
 	private boolean selected;
 	private boolean highlighted;
+	
+	private int x;
+	private int y;
 
 	public Piece() {
 		this.color=' ';
@@ -107,5 +110,17 @@ public class Piece {
 		this.highlighted = false;
 		this.selected = false;
 		this.king = other.king;
+	}
+	
+	public void setLocation(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public int[] getLocation() {
+		int[] num = new int[2];
+		num[0] = this.x;
+		num[1] = this.y;
+		return num;
 	}
 }

@@ -146,6 +146,7 @@ public class MenuInterface {
 
 					});
 					pieces[i][j].setButton(b);
+					pieces[i][j].setLocation(i, j);
 				} else {
 					b = pieces[i][j].getButton();
 				}
@@ -213,6 +214,15 @@ public class MenuInterface {
 					Piece selPiece = selected.get(0); // get selected piece
 					System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " was sel");
 					piece.copy(selPiece);	// get the clicked piece and copy information from the selected piece
+					if (piece.getColor() == 'R') {
+						if (piece.getLocation()[0] == 7) {
+							piece.setKing(true);
+						}
+					} else if (piece.getColor() == 'B') {
+						if (piece.getLocation()[0] == 0) {
+							piece.setKing(true);
+						}
+					}
 					
 					selPiece.select();		// deselect the selected piece 
 					selPiece.setColor(' ');	// remove the checker from the selected piece
@@ -222,6 +232,22 @@ public class MenuInterface {
 							+ pieces[i1][j1].getColor());
 					
 					piece.highlight(); // unhighlight the clicked piece
+					
+					ArrayList<Piece> jumped = board.getJumpedPieces(piece.getLocation()[0], 
+							piece.getLocation()[1], 
+							selPiece.getLocation()[0], 
+							selPiece.getLocation()[1]); 
+					System.out.println("There were " + jumped.size() + " pieces jumped");
+					if (jumped.size() > 0) { // if the jump had jumped over other pieces
+						for (int i = 0; i < jumped.size(); i++) {
+							Piece jumpedPiece = jumped.get(i);
+							System.out.println("Piece [" + jumpedPiece.getLocation()[0] 
+									+ "," + jumpedPiece.getLocation()[1] + "] was jumped.");
+							jumpedPiece.setColor(' ');
+							jumpedPiece.setKing(false);		// delete those checkers
+						}
+					}
+					
 					Main.getGame().nextTurn(); // proceed to next turn
 				}
 				clearSelecting(pieces); // clear any marks on board

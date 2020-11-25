@@ -170,6 +170,19 @@ public class Board {
 //		return points;
 //	}
 	
+	public ArrayList<Piece> getJumpedPieces(int toX, int toY, int fromX, int fromY) {
+		ArrayList<Piece> pieces = new ArrayList<>();
+		if (Math.abs(toX - fromX) >= 2 && Math.abs(toY - fromY) >= 2) {
+			int x = (toX + fromX) / 2;
+			int y = (toY + fromY) / 2;
+			pieces.add(board[x][y]);
+//			System.out.println("Piece at [" + (toX + (fromX-toX) -1) + "," + (toY + (fromY-toY) -1) + "] is being jumped.");
+//			System.out.println("Calculated via: " + toX + " + (" + fromX + "-" + toX + "-1)");
+//			System.out.println("Calculated via: " + toY + " + (" + fromY + "-" + toY + "-1)");
+		}
+		return pieces;
+	}
+	
 	/**
 	 * 
 	 * @param i row position of selected piece
