@@ -500,4 +500,42 @@ public class Board {
 		}
 		return pieces;
 	}
+
+	
+	public int getTeamCheckersCount(char c) {//tell if this team still has pieces on the board
+		
+		int checkersCount = 0;
+		
+		for(int i = 0; i < pieces().length; i++) {
+			for(int j = 0; j < pieces().length; j++) {
+				
+				if(board[i][j].getColor() == c) {
+					checkersCount++;
+				}			
+			}
+		}
+		return checkersCount;
+	}
+	
+	public char hasOne() {
+		
+		if(getTeamCheckersCount('r') == 0) {
+			return 'b';
+		}
+		else if(getTeamCheckersCount('R') == 0) {
+			return 'b';
+		}
+		else if(getTeamCheckersCount('b') == 0) {
+			return 'r';
+		}
+		else if(getTeamCheckersCount('B') == 0) {
+			return 'r';
+		}
+		else {
+			return 'f';
+		}
+	}
 }
+		
+	
+	
