@@ -517,23 +517,21 @@ public class Board {
 		return checkersCount;
 	}
 	
-	public char hasOne() {
+	public void hasOne() {
 		
 		if(getTeamCheckersCount('r') == 0) {
-			return 'b';
+			System.out.println("Black has won");
 		}
 		else if(getTeamCheckersCount('R') == 0) {
-			return 'b';
+			System.out.println("Black has won");
 		}
 		else if(getTeamCheckersCount('b') == 0) {
-			return 'r';
+			System.out.println("Red has won");
 		}
 		else if(getTeamCheckersCount('B') == 0) {
-			return 'r';
+			System.out.println("Red has won");
 		}
-		else {
-			return 'f';
-		}
+		
 	}
 }
 		
