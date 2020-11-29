@@ -6,10 +6,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,8 +30,8 @@ public class MenuInterface {
 	private String rowLabel;
 	private JButton indicator;
 
-	final private int width = 600;
-	final private int height = 600;
+	final private int width = 650;
+	final private int height = 650;
 
 	public MenuInterface(Board board, boolean display) {
 		this.board = board;
@@ -41,7 +39,7 @@ public class MenuInterface {
 		frame = new JFrame();
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		//frame.setResizable(false);
 		frame.setTitle("Checkers");
 		gui = new JPanel(new BorderLayout(4, 4));
 		message = new JLabel("Testing checkers");
@@ -97,13 +95,25 @@ public class MenuInterface {
 			colors[2] = 255;
 		} else {
 			if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
-				colors[0] = 176;
-				colors[1] = 245;
-				colors[2] = 185;
+				if (i >= 4) { // black
+					colors[0] = 176;
+					colors[1] = 176;
+					colors[2] = 176;
+				} else if (i <= 3) { // red
+					colors[0] = 255;
+					colors[1] = 140;
+					colors[2] = 140;
+				}
 			} else {
-				colors[0] = 154;
-				colors[1] = 237;
-				colors[2] = 165;
+				if (i <= 3) { // red
+					colors[0] = 255;
+					colors[1] = 112;
+					colors[2] = 112;
+				} else if (i >= 4) { // black
+					colors[0] = 155;
+					colors[1] = 155;
+					colors[2] = 155;
+				}
 			}
 		}
 		return colors;
@@ -168,6 +178,15 @@ public class MenuInterface {
 				} else {
 					b.setIcon(new ImageIcon(""));
 				}
+			}
+		}
+		if (Main.getGame() != null) {
+			if (board.getWin() == 'R') {
+				System.out.println("Red Wins");
+			} else if (board.getWin() == 'B') {
+				System.out.println("Black Wins");
+			} else if (board.getWin() == 'S') { 
+				System.out.println("Stalemate");
 			}
 		}
 	}

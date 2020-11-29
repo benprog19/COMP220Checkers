@@ -16,6 +16,15 @@ public class Game {
 		return turn;
 	}
 	
+	public char getTurnCharRef() {
+		if (this.turn == 0) {
+			return 'R';
+		} else if (this.turn == 1) {
+			return 'B';
+		} 
+		return 'X';
+	}
+	
 	public void nextTurn() {
 		this.turn = (turn == 0 ? 1 : 0);
 		this.board.getMenu().setIndicator((turn == 0 ? Color.RED : Color.BLACK));

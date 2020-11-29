@@ -143,32 +143,6 @@ public class Board {
 		kingCheck(i,j);
 
 	}
-
-//	public ArrayList<int[]> canJump2(int i, int j) {
-//		ArrayList<int[]> points = new ArrayList<>();
-//		Piece piece = pieceAt(i, j);
-//		if (piece.getColor() == 'R') {
-//			if (j < 7) {
-//				if (i < 7) {
-//					if (!piece.isKing()) {
-//						int[] n = new int[2];
-//						n[0] = i+1;
-//						n[1] = j+1;
-//						points.add(n);
-//					}
-//				} 
-//				if (i > 0) {
-//					if (!piece.isKing()) {
-//						int[] n = new int[2];
-//						n[0] = i+1;
-//						n[1] = j+1;
-//						points.add(n);
-//					}
-//				}
-//			}
-//		}
-//		return points;
-//	}
 	
 	public ArrayList<Piece> getJumpedPieces(int toX, int toY, int fromX, int fromY) {
 		ArrayList<Piece> pieces = new ArrayList<>();
@@ -176,9 +150,6 @@ public class Board {
 			int x = (toX + fromX) / 2;
 			int y = (toY + fromY) / 2;
 			pieces.add(board[x][y]);
-//			System.out.println("Piece at [" + (toX + (fromX-toX) -1) + "," + (toY + (fromY-toY) -1) + "] is being jumped.");
-//			System.out.println("Calculated via: " + toX + " + (" + fromX + "-" + toX + "-1)");
-//			System.out.println("Calculated via: " + toY + " + (" + fromY + "-" + toY + "-1)");
 		}
 		return pieces;
 	}
@@ -466,13 +437,11 @@ public class Board {
 		return points;
 	}
 	// returning the piece at the board spot
-	Piece pieceAt(int i, int j)
-	{
+	public Piece pieceAt(int i, int j) {
 		return board[i][j];
 	}
-
-	void kingCheck(int i, int j)
-	{
+	
+	public void kingCheck(int i, int j) {
 		if(pieceAt(i,j).getColor() == 'R'&& i == 7)
 		{
 			pieceAt(i,j).setKing(true);
@@ -500,38 +469,51 @@ public class Board {
 		}
 		return pieces;
 	}
-
 	
-	public int getTeamCheckersCount(char c) {//tell if this team still has pieces on the board
+	public ArrayList<int[]> getTeamCheckers(char c) {
+		ArrayList<int[]> list = new ArrayList<>();
 		
-		int checkersCount = 0;
-		
-		for(int i = 0; i < pieces().length; i++) {
-			for(int j = 0; j < pieces().length; j++) {
-				
-				if(board[i][j].getColor() == c) {
-					checkersCount++;
-				}			
+		for (int i = 0; i < pieces().length; i++) {
+			for (int j = 0; j < pieces().length; j++) {
+				if (pieceAt(i,j).getColor() == c) {
+					int[] loc = new int[2];
+					loc[0] = i;
+					loc[1] = j;
+					list.add(loc);
+				}
 			}
 		}
-		return checkersCount;
+		return list;
 	}
 	
-	public void hasOne() {
-		
-		if(getTeamCheckersCount('r') == 0) {
-			System.out.println("Black has won");
+	public char getWin() {
+		int red = getTeamCheckers('R').size();
+		int black = getTeamCheckers('B').size();
+		if(red == 0) {
+			return 'B'; // black
+		} else if(black == 0) {
+			return 'R'; // red
+		} else {
+			char turn = Main
+					.getGame()
+					.getTurnCharRef();
+			int num = turn == 'R' ? red : black;
+			boolean stalemate = true;
+			for (int i = 0; i < num; i++) {
+				int[] loc = getTeamCheckers(turn).get(i);
+				try {
+					if (canJump(loc[0], loc[1]).size() > 0) {
+						stalemate = false;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (stalemate) {
+				return 'S'; // stalemate
+			}
 		}
-		else if(getTeamCheckersCount('R') == 0) {
-			System.out.println("Black has won");
-		}
-		else if(getTeamCheckersCount('b') == 0) {
-			System.out.println("Red has won");
-		}
-		else if(getTeamCheckersCount('B') == 0) {
-			System.out.println("Red has won");
-		}
-		
+		return 'P'; // pass 
 	}
 }
 		
