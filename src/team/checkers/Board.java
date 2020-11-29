@@ -490,9 +490,9 @@ public class Board {
 		int red = getTeamCheckers('R').size();
 		int black = getTeamCheckers('B').size();
 		if(red == 0) {
-			return 'B'; // black
-		} else if(black == 0) {
 			return 'R'; // red
+		} else if(black == 0) {
+			return 'B'; // black
 		} else {
 			char turn = Main
 					.getGame()

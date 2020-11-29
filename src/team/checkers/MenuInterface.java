@@ -39,7 +39,7 @@ public class MenuInterface {
 		frame = new JFrame();
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setResizable(false);
+		// frame.setResizable(false);
 		frame.setTitle("Checkers");
 		gui = new JPanel(new BorderLayout(4, 4));
 		message = new JLabel("Testing checkers");
@@ -83,7 +83,7 @@ public class MenuInterface {
 		}
 	}
 
-	private int[] originalBackgroundColor(int i, int j) {
+	private int[] originalBackgroundColor(int i, int j, char allColor) {
 		int[] colors = new int[3];
 		if (board.pieces()[i][j].isSelected()) {
 			colors[0] = 0;
@@ -94,25 +94,59 @@ public class MenuInterface {
 			colors[1] = 255;
 			colors[2] = 255;
 		} else {
-			if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
-				if (i >= 4) { // black
-					colors[0] = 176;
-					colors[1] = 176;
-					colors[2] = 176;
-				} else if (i <= 3) { // red
-					colors[0] = 255;
-					colors[1] = 140;
-					colors[2] = 140;
+			if (allColor == ' ') {
+				if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
+					if (i >= 4) { // black
+						colors[0] = 176;
+						colors[1] = 176;
+						colors[2] = 176;
+					} else if (i <= 3) { // red
+						colors[0] = 255;
+						colors[1] = 140;
+						colors[2] = 140;
+					}
+				} else {
+					if (i <= 3) { // red
+						colors[0] = 255;
+						colors[1] = 112;
+						colors[2] = 112;
+					} else if (i >= 4) { // black
+						colors[0] = 155;
+						colors[1] = 155;
+						colors[2] = 155;
+					}
 				}
 			} else {
-				if (i <= 3) { // red
-					colors[0] = 255;
-					colors[1] = 112;
-					colors[2] = 112;
-				} else if (i >= 4) { // black
-					colors[0] = 155;
-					colors[1] = 155;
-					colors[2] = 155;
+				if (allColor == 'R') {
+					if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
+						colors[0] = 255;
+						colors[1] = 140;
+						colors[2] = 140;
+					} else {
+						colors[0] = 255;
+						colors[1] = 112;
+						colors[2] = 112;
+					}
+				} else if (allColor == 'B') {
+					if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
+						colors[0] = 176;
+						colors[1] = 176;
+						colors[2] = 176;
+					} else {
+						colors[0] = 155;
+						colors[1] = 155;
+						colors[2] = 155;
+					}
+				} else if (allColor == 'S') {
+					if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
+						colors[0] = 255;
+						colors[1] = 171;
+						colors[2] = 249;
+					} else {
+						colors[0] = 255;
+						colors[1] = 184;
+						colors[2] = 250;
+					}
 				}
 			}
 		}
@@ -161,8 +195,8 @@ public class MenuInterface {
 					b = pieces[i][j].getButton();
 				}
 
-				b.setBackground(new Color(originalBackgroundColor(i, j)[0], originalBackgroundColor(i, j)[1],
-						originalBackgroundColor(i, j)[2]));
+				b.setBackground(new Color(originalBackgroundColor(i, j, ' ')[0], originalBackgroundColor(i, j, ' ')[1],
+						originalBackgroundColor(i, j, ' ')[2]));
 				if (pieces[i][j].getColor() == 'R') {
 					if (pieces[i][j].isKing()) {
 						b.setIcon(redKing);
@@ -181,12 +215,15 @@ public class MenuInterface {
 			}
 		}
 		if (Main.getGame() != null) {
-			if (board.getWin() == 'R') {
-				System.out.println("Red Wins");
-			} else if (board.getWin() == 'B') {
-				System.out.println("Black Wins");
-			} else if (board.getWin() == 'S') { 
-				System.out.println("Stalemate");
+			char winner = board.getWin();
+			if (winner != 'P') {
+				for (int i = 0; i < pieces.length; i++) {
+					for (int j = 0; j < pieces.length; j++) {
+						pieces[i][j].setColor(' ');
+						pieces[i][j].getButton().setBackground(new Color(originalBackgroundColor(i, j, winner)[0],
+								originalBackgroundColor(i, j, winner)[1], originalBackgroundColor(i, j, winner)[2]));
+					}
+				}
 			}
 		}
 	}
@@ -221,18 +258,18 @@ public class MenuInterface {
 				}
 			}
 		} else { // if piece does not have a checker
-			
+
 			if (piece.isHighlighted()) { // if its a highlighted piece
 				System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " was high");
-				
-				ArrayList<Piece> selected = board.getSelectedPieces(); // find selected pieces on board 
-																	   // (should only be one piece that was selected)
+
+				ArrayList<Piece> selected = board.getSelectedPieces(); // find selected pieces on board
+																		// (should only be one piece that was selected)
 				System.out.println(selected.size() + " size");
-				if (selected.size() == 1) { 			// if equal to 1, which should always be true
-					
+				if (selected.size() == 1) { // if equal to 1, which should always be true
+
 					Piece selPiece = selected.get(0); // get selected piece
 					System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " was sel");
-					piece.copy(selPiece);	// get the clicked piece and copy information from the selected piece
+					piece.copy(selPiece); // get the clicked piece and copy information from the selected piece
 					if (piece.getColor() == 'R') {
 						if (piece.getLocation()[0] == 7) {
 							piece.setKing(true);
@@ -242,31 +279,29 @@ public class MenuInterface {
 							piece.setKing(true);
 						}
 					}
-					
-					selPiece.select();		// deselect the selected piece 
-					selPiece.setColor(' ');	// remove the checker from the selected piece
+
+					selPiece.select(); // deselect the selected piece
+					selPiece.setColor(' '); // remove the checker from the selected piece
 					selPiece.setKing(false); // remove king if there was a king of the selected piece
-					
+
 					System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " is now "
 							+ pieces[i1][j1].getColor());
-					
+
 					piece.highlight(); // unhighlight the clicked piece
-					
-					ArrayList<Piece> jumped = board.getJumpedPieces(piece.getLocation()[0], 
-							piece.getLocation()[1], 
-							selPiece.getLocation()[0], 
-							selPiece.getLocation()[1]); 
+
+					ArrayList<Piece> jumped = board.getJumpedPieces(piece.getLocation()[0], piece.getLocation()[1],
+							selPiece.getLocation()[0], selPiece.getLocation()[1]);
 					System.out.println("There were " + jumped.size() + " pieces jumped");
 					if (jumped.size() > 0) { // if the jump had jumped over other pieces
 						for (int i = 0; i < jumped.size(); i++) {
 							Piece jumpedPiece = jumped.get(i);
-							System.out.println("Piece [" + jumpedPiece.getLocation()[0] 
-									+ "," + jumpedPiece.getLocation()[1] + "] was jumped.");
+							System.out.println("Piece [" + jumpedPiece.getLocation()[0] + ","
+									+ jumpedPiece.getLocation()[1] + "] was jumped.");
 							jumpedPiece.setColor(' ');
-							jumpedPiece.setKing(false);		// delete those checkers
+							jumpedPiece.setKing(false); // delete those checkers
 						}
 					}
-					
+
 					Main.getGame().nextTurn(); // proceed to next turn
 				}
 				clearSelecting(pieces); // clear any marks on board
