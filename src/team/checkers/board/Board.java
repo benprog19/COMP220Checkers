@@ -1,6 +1,8 @@
-package team.checkers;
+package team.checkers.board;
 
 import java.util.ArrayList;
+
+import team.checkers.game.Main;
 
 
 public class Board {
@@ -490,9 +492,13 @@ public class Board {
 		int red = getTeamCheckers('R').size();
 		int black = getTeamCheckers('B').size();
 		if(red == 0) {
-			return 'R'; // red
+			Main.getGame().addWin(Main.getGame().getBlackPlayer());
+			Main.getGame().addLoss(Main.getGame().getRedPlayer());
+			return 'B'; // red
 		} else if(black == 0) {
-			return 'B'; // black
+			Main.getGame().addWin(Main.getGame().getRedPlayer());
+			Main.getGame().addLoss(Main.getGame().getBlackPlayer());
+			return 'R'; // black
 		} else {
 			char turn = Main
 					.getGame()

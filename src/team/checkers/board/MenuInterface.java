@@ -1,4 +1,4 @@
-package team.checkers;
+package team.checkers.board;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +18,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import team.checkers.game.Game;
+import team.checkers.game.Main;
+import team.checkers.player.Stats;
+
 public class MenuInterface {
 
 	private Board board;
@@ -34,6 +38,8 @@ public class MenuInterface {
 	final private int height = 650;
 
 	public MenuInterface(Board board, boolean display) {
+		Game game = Main.getGame();
+	
 		this.board = board;
 
 		frame = new JFrame();
@@ -42,7 +48,13 @@ public class MenuInterface {
 		// frame.setResizable(false);
 		frame.setTitle("Checkers");
 		gui = new JPanel(new BorderLayout(4, 4));
-		message = new JLabel("Testing checkers");
+		
+		Stats redStats = game.getStatsFromName(game.getRedPlayer());
+		Stats blackStats = game.getStatsFromName(game.getBlackPlayer());
+		
+		message = new JLabel("Checkers |  " + redStats.getName() 
+		+ " [" + redStats.getWLRatio() + "] vs " + blackStats.getName() 
+		+ " [" + blackStats.getWLRatio() + "]");
 		colsLabel = "ABCDEFGH";
 
 		gui.setBorder(new EmptyBorder(4, 4, 4, 4));
@@ -171,6 +183,7 @@ public class MenuInterface {
 		ImageIcon blackKing = new ImageIcon("content/black_king.png");
 		// System.out.println("rows: " + board.getPieces().length);
 		Piece[][] pieces = board.pieces();
+		ActionListener actionListener;
 		for (int i = 0; i < pieces.length; i++) {
 			for (int j = 0; j < pieces.length; j++) {
 
@@ -181,14 +194,15 @@ public class MenuInterface {
 					b.setMargin(insets);
 					final int i1 = i;
 					final int j1 = j;
-					b.addActionListener(new ActionListener() {
+					actionListener = new ActionListener() {
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							pieceAction(pieces, i1, j1);
 						}
 
-					});
+					};
+					b.addActionListener(actionListener);
 					pieces[i][j].setButton(b);
 					pieces[i][j].setLocation(i, j);
 				} else {
@@ -222,6 +236,8 @@ public class MenuInterface {
 						pieces[i][j].setColor(' ');
 						pieces[i][j].getButton().setBackground(new Color(originalBackgroundColor(i, j, winner)[0],
 								originalBackgroundColor(i, j, winner)[1], originalBackgroundColor(i, j, winner)[2]));
+						pieces[i][j].getButton().setIcon(new ImageIcon(""));
+						pieces[i][j].getButton().setEnabled(false);
 					}
 				}
 			}

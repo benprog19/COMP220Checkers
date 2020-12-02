@@ -1,4 +1,4 @@
-package team.checkers;
+package team.checkers.board;
 
 import javax.swing.JButton;
 

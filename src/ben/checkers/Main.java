@@ -2,7 +2,7 @@ package ben.checkers;
 
 import javax.swing.SwingUtilities;
 
-import team.checkers.Game;
+import team.checkers.game.Game;
 
 class Main {
 
