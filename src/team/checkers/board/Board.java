@@ -10,6 +10,12 @@ public class Board {
 	private Piece[][] board;
 	private MenuInterface menu;
 	
+	
+	/**
+	 * 
+	 * @param display - boolean of  
+	 * This is the board constructor.
+	 */
 	public Board(boolean display) {
 		this.board = new Piece[8][8];
 
@@ -44,6 +50,9 @@ public class Board {
 		menu = new MenuInterface(this, display);
 	}
 	
+	/*
+	 * This is the call method to get the menu
+	 */
 	public MenuInterface getMenu() {
 		return menu;
 	}
