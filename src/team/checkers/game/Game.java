@@ -101,7 +101,10 @@ public class Game {
 	public Board getBoard() {
 		return board;
 	}
-
+/**
+ * 
+ * @param output - 
+ */
 	@SuppressWarnings("unchecked")
 	public void readStats(boolean output) {
 		File file = new File("stor/playerstats.dat");
@@ -141,7 +144,9 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * This adds the statistics to a file
+ */
 	public void updateStats() {
 		File dir = new File("stor");
 		File file = new File("stor/playerstats.dat");
@@ -175,15 +180,25 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * Creates a HashMap of a Player's Stats
+ * @return the player's stats 
+ */
 	public HashMap<String, Stats> getPlayerStats() {
 		return playerStats;
 	}
-
+/**
+ * This creates a Stat Object for the person playing
+ * @param name - The name of the player
+ * @return the statistics of who's playing
+ */
 	public Stats getStatsFromName(String name) {
 		return playerStats.get(name);
 	}
-
+	/**
+	 * This adds a win to the statistics of the person playing who lost
+	 * @param name - The name of who won
+	 */
 	public void addWin(String name) {
 		Stats stats = playerStats.get(name);
 		if (stats != null) {
@@ -193,7 +208,10 @@ public class Game {
 		}
 
 	}
-
+/**
+ * This adds a loss to the statistics of the person playing who lost
+ * @param name - The name of who lost
+ */
 	public void addLoss(String name) {
 		Stats stats = playerStats.get(name);
 		if (stats != null) {

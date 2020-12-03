@@ -16,6 +16,11 @@ public class Main {
 	 *
 	 */
 	
+	/**
+	 * 
+	 * @param args
+	 * This is the main method where the game is played.
+	 */
 	public static void main(String[] args) {
 		game = new Game();
 		System.out.print("Welcome to Checkers! \n\n"
@@ -47,7 +52,10 @@ public class Main {
 		}
 		
 	}
-	
+	/**
+	 * This is the method to create the game
+	 * @return the called game
+	 */
 	public static Game getGame() {
 		return game;
 	}
