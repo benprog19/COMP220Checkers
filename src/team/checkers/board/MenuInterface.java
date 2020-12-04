@@ -245,7 +245,7 @@ public class MenuInterface {
 	}
 
 	public void pieceAction(Piece[][] pieces, final int i1, final int j1) {
-		System.out.println("Action[" + i1 + "," + j1 + "]: clicked : " + Main.getGame().getTurn());
+		//System.out.println("Action[" + i1 + "," + j1 + "]: clicked : " + Main.getGame().getTurn());
 		Piece piece = pieces[i1][j1]; // piece being clicked
 
 		if (piece.getColor() != ' ') { // if piece does have a checker
@@ -257,8 +257,7 @@ public class MenuInterface {
 			if (Main.getGame().hasTurn(piece.getColor())) { // if current turn == piece color reference
 				piece.select(); // select piece clicked
 
-				System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].getColor() + " sel "
-						+ pieces[i1][j1].isSelected());
+				//System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].getColor() + " sel " + pieces[i1][j1].isSelected());
 
 				try {
 					ArrayList<int[]> moves = board.canJump(i1, j1); // find locations to jump
@@ -266,8 +265,7 @@ public class MenuInterface {
 					for (int i = 0; i < moves.size(); i++) { // highlight locations to jump
 						Piece newPiece = pieces[moves.get(i)[0]][moves.get(i)[1]];
 						newPiece.highlight();
-						System.out.println("b[" + moves.get(i)[0] + "," + moves.get(i)[1] + "]: "
-								+ pieces[i1][j1].getColor() + " high " + newPiece.isHighlighted());
+						//System.out.println("b[" + moves.get(i)[0] + "," + moves.get(i)[1] + "]: " + pieces[i1][j1].getColor() + " high " + newPiece.isHighlighted());
 					}
 				} catch (Exception e1) {
 
@@ -276,15 +274,15 @@ public class MenuInterface {
 		} else { // if piece does not have a checker
 
 			if (piece.isHighlighted()) { // if its a highlighted piece
-				System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " was high");
+				//System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " was high");
 
 				ArrayList<Piece> selected = board.getSelectedPieces(); // find selected pieces on board
 																		// (should only be one piece that was selected)
-				System.out.println(selected.size() + " size");
+				//System.out.println(selected.size() + " size");
 				if (selected.size() == 1) { // if equal to 1, which should always be true
 
 					Piece selPiece = selected.get(0); // get selected piece
-					System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " was sel");
+					//System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " was sel");
 					piece.copy(selPiece); // get the clicked piece and copy information from the selected piece
 					if (piece.getColor() == 'R') {
 						if (piece.getLocation()[0] == 7) {
@@ -300,19 +298,17 @@ public class MenuInterface {
 					selPiece.setColor(' '); // remove the checker from the selected piece
 					selPiece.setKing(false); // remove king if there was a king of the selected piece
 
-					System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " is now "
-							+ pieces[i1][j1].getColor());
+					//System.out.println("b[" + i1 + "," + j1 + "]: " + pieces[i1][j1].toString() + " is now " + pieces[i1][j1].getColor());
 
 					piece.highlight(); // unhighlight the clicked piece
 
 					ArrayList<Piece> jumped = board.getJumpedPieces(piece.getLocation()[0], piece.getLocation()[1],
 							selPiece.getLocation()[0], selPiece.getLocation()[1]);
-					System.out.println("There were " + jumped.size() + " pieces jumped");
+					//System.out.println("There were " + jumped.size() + " pieces jumped");
 					if (jumped.size() > 0) { // if the jump had jumped over other pieces
 						for (int i = 0; i < jumped.size(); i++) {
 							Piece jumpedPiece = jumped.get(i);
-							System.out.println("Piece [" + jumpedPiece.getLocation()[0] + ","
-									+ jumpedPiece.getLocation()[1] + "] was jumped.");
+							//System.out.println("Piece [" + jumpedPiece.getLocation()[0] + "," + jumpedPiece.getLocation()[1] + "] was jumped.");
 							jumpedPiece.setColor(' ');
 							jumpedPiece.setKing(false); // delete those checkers
 						}

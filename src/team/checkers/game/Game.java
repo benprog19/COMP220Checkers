@@ -16,8 +16,6 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.EOFException;
-
 import team.checkers.board.Board;
 import team.checkers.player.Stats;
 
@@ -140,8 +138,6 @@ public class Game {
 		} catch (IOException e) {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (EOFException e) {
-			e.printStackTrace();
 		}
 	}
 /**
@@ -153,19 +149,7 @@ public class Game {
 		if (!dir.exists()) {
 			dir.mkdir();
 		}
-
-//		System.out.println("Saving " + playerStats.size() + " number of stats from HashMap");
-//		Set<String> set = playerStats.keySet();
-//		Iterator<String> iter = set.iterator();
-//		while (iter.hasNext()) {
-//			String userName = iter.next();
-//			Stats stats = playerStats.get(userName);
-//			if (stats != null) {
-//				System.out.println(stats.getName() 
-//						+ " : [" + stats.getWins() + ", " + stats.getLosses() + ", " + stats.getWLRatio() + "]");
-//			}
-//		}
-
+		
 		// write information to file
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
@@ -219,6 +203,13 @@ public class Game {
 			playerStats.put(name, stats);
 			updateStats();
 		}
+	}
+	
+	public void printStats() {
+		Stats stats = getStatsFromName(redPlayer);
+		System.out.println(stats.toString());
+		stats = getStatsFromName(blackPlayer);
+		System.out.println(stats.toString());
 	}
 
 }

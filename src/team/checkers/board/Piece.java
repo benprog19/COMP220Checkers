@@ -6,7 +6,7 @@ public class Piece {
 
 	private char color;
 	private boolean king;
-	private JButton button; // SHOULD NOT CHANGE
+	private JButton button; // SHOULD NEVER CHANGE 
 	
 	private boolean selected;
 	private boolean highlighted;

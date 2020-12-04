@@ -86,12 +86,19 @@ public class Board {
 	 */
 	@Override
 	public String toString() {
-		String ans = "";
+		String ans = " ";
+		for (int i = 0; i < 8; i++) {
+			ans = ans + "   " + (char) (i + 65) + "";
+		}
+		ans = ans + "\n   ------------------------------\n";
+		
+		
 		for(int i = 0; i < 8; i++)
 		{
+			ans = ans + i + " | ";
 			for(int j = 0; j < 8; j++)
 			{
-				ans = ans + (this.board[i][j].getColor());
+				ans = ans + (this.board[j][i].getColor());
 				if(j != 7)
 				{
 					ans = ans +(" | ");
@@ -100,7 +107,7 @@ public class Board {
 			ans = ans +("\n");
 			if(i !=7)
 			{
-				ans = ans +("-----------------------------\n");
+				ans = ans +("  |--------------------------------\n");
 			}
 		}
 		return ans;
@@ -113,20 +120,13 @@ public class Board {
 	 * 
 	 * finds out where the player wants the selected piece to jump to and takes pieces jump over out
 	 */
-	public void jump(int i, int j, int k, int l, ArrayList<int[]> points) {
+	public void jump(int i, int j, int k, int l) {
 
-		for(int groupNum = 0; groupNum < points.size();groupNum++)
-		{
-			int [] point = points.get(groupNum);
-			if(point[0] == k && point[1] == l)
-			{
-				//moving a piece
-				board[k][l].setColor(board[i][j].getColor());
-				board[k][l].setKing(board[i][j].isKing());
-				board[i][j].setColor(' ');
-				board[i][j].setKing(false);
-			}
-		}
+		board[k][l].setColor(board[i][j].getColor());
+		board[k][l].setKing(board[i][j].isKing());
+		board[i][j].setColor(' ');
+		board[i][j].setKing(false);
+		
 		//If it is jumping over a piece
 		if (Math.abs(i-k)==2&& Math.abs(j-l)==2)
 		{
@@ -335,7 +335,7 @@ public class Board {
 						{
 							int[] point = new int[2];
 							point[0] = k;
-							point[1]=l;
+							point[1] = l;
 							points.add(point);
 						}
 					}
@@ -447,7 +447,7 @@ public class Board {
 		}
 		return points;
 	}
-	// returning the piece at the board spot
+	
 	public Piece pieceAt(int i, int j) {
 		return board[i][j];
 	}
@@ -472,7 +472,7 @@ public class Board {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				Piece piece = pieceAt(i, j);
-				System.out.print("[" + i + "," + j + "]: " + (piece.isHighlighted() ? "high" : "") + (piece.isSelected() ? "sel" : ""));
+				//System.out.print("[" + i + "," + j + "]: " + (piece.isHighlighted() ? "high" : "") + (piece.isSelected() ? "sel" : ""));
 				if (piece.isSelected()) {
 					pieces.add(piece);
 				}
@@ -503,10 +503,12 @@ public class Board {
 		if(red == 0) {
 			Main.getGame().addWin(Main.getGame().getBlackPlayer());
 			Main.getGame().addLoss(Main.getGame().getRedPlayer());
+			Main.getGame().printStats();
 			return 'B'; // red
 		} else if(black == 0) {
 			Main.getGame().addWin(Main.getGame().getRedPlayer());
 			Main.getGame().addLoss(Main.getGame().getBlackPlayer());
+			Main.getGame().printStats();
 			return 'R'; // black
 		} else {
 			char turn = Main

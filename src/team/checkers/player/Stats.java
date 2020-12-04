@@ -32,14 +32,14 @@ public class Stats implements Serializable {
 	 */
 	public void addWin() {
 		this.wins++;
-		System.out.println(wins + " wins");
+		//System.out.println(wins + " wins");
 	}
 	/**
 	 * This adds a loss to someone's stats
 	 */
 	public void addLoss() {
 		this.losses++;
-		System.out.println(losses + " losses");
+		//System.out.println(losses + " losses");
 	}
 	/**
 	 * 
@@ -68,6 +68,11 @@ public class Stats implements Serializable {
 	 */
 	public double getWLRatio() {
 		return (double) wins / (wins + losses);
+	}
+	
+	@Override
+	public String toString() {
+		return name + ": " + wins + "w, " + losses + "l, " + getWLRatio();
 	}
 	
 }
