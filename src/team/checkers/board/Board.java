@@ -13,7 +13,7 @@ public class Board {
 	
 	/**
 	 * 
-	 * @param display - boolean of  
+	 * @param display -This is the window the game is played in when using a GUI 
 	 * This is the board constructor.
 	 */
 	public Board(boolean display) {
@@ -153,7 +153,14 @@ public class Board {
 		kingCheck(i,j);
 
 	}
-	
+	/**
+	 * 
+	 * @param toX - the row where the piece is moving to
+	 * @param toY - the column where the piece is moving to
+	 * @param fromX - the row where the piece is moving from
+	 * @param fromY - the column where the piece is moving from
+	 * @return - The board with the new move executed
+	 */
 	public ArrayList<Piece> getJumpedPieces(int toX, int toY, int fromX, int fromY) {
 		ArrayList<Piece> pieces = new ArrayList<>();
 		if (Math.abs(toX - fromX) >= 2 && Math.abs(toY - fromY) >= 2) {
@@ -199,7 +206,13 @@ public class Board {
 		}
 		throw new Exception("Please select a piece");
 	}
-
+/**
+ * 
+ * @param i - the row the piece is in
+ * @param j - the column the piece is in
+ * @return - whether a king piece can complete the selected jump
+ * @throws Exception - if the selected place is not allowed
+ */
 	//return whether a King piece can complete the desired jump
 	private ArrayList<int[]> kingJump(int i,int j) throws Exception
 	{
@@ -300,8 +313,14 @@ public class Board {
 		}
 		return points;
 	}
-
-	//return whether a nonKing red piece can complete the desired jump
+/**
+ * 
+ * @param i - The desired jump's row location
+ * @param j - The desired jump's column location
+ * @return - whether a nonKing red piece can complete the selected jump
+ * @throws Exception if the selected place is not allowed
+ */
+	
 	private ArrayList<int[]> redJump(int i,int j) throws Exception
 	{
 		ArrayList<int[]> points = new ArrayList<>();
@@ -374,8 +393,14 @@ public class Board {
 		return points;
 	}
 
-
-	//return whether a nonKing black piece can complete the desired jump
+/**
+ * 
+ * @param i - the desired jump's row location
+ * @param j - the desired jump's column location
+ * @return whether a nonKing black piece can legally perform the selected jump
+ * @throws Exception if the selected place is not allowed
+ */
+	
 	private ArrayList<int[]> blackJump(int i,int j) throws Exception
 	{
 		ArrayList<int[]> points = new ArrayList<>();
@@ -446,11 +471,20 @@ public class Board {
 		}
 		return points;
 	}
-	
+	/**
+	 * 
+	 * @param i - the row location
+	 * @param j - the column location
+	 * @return the board with the piece at [i,j] selected
+	 */
 	public Piece pieceAt(int i, int j) {
 		return board[i][j];
 	}
-	
+	/**
+	 * Checks if a piece is a king
+	 * @param i - the row location
+	 * @param j - the column location
+	 */
 	public void kingCheck(int i, int j) {
 		if(pieceAt(i,j).getColor() == 'R'&& i == 7)
 		{
@@ -461,13 +495,16 @@ public class Board {
 			pieceAt(i,j).setKing(true);
 		}
 	}
-	
+	/**
+	 * 
+	 * @return the board
+	 */
 	public Piece[][] pieces() {
 		return board;
 	}
 /**
  * 	
- * @return
+ * @return The pieces that are legal to pick
  */
 	public ArrayList<Piece> getSelectedPieces() {
 		ArrayList<Piece> pieces = new ArrayList<>();
