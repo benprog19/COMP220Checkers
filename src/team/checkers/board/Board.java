@@ -50,7 +50,7 @@ public class Board {
 		menu = new MenuInterface(this, display);
 	}
 	
-	/*
+	/**
 	 * This is the call method to get the menu
 	 */
 	public MenuInterface getMenu() {
@@ -82,7 +82,7 @@ public class Board {
 
 	}
 	/**
-	 *  Prints the Current State of the Board
+	 *  Prints the current State of the Board
 	 */
 	@Override
 	public String toString() {
@@ -91,8 +91,7 @@ public class Board {
 			ans = ans + "   " + (char) (i + 65) + "";
 		}
 		ans = ans + "\n   ------------------------------\n";
-		
-		
+			
 		for(int i = 0; i < 8; i++)
 		{
 			ans = ans + i + " | ";
@@ -466,7 +465,10 @@ public class Board {
 	public Piece[][] pieces() {
 		return board;
 	}
-	
+/**
+ * 	
+ * @return
+ */
 	public ArrayList<Piece> getSelectedPieces() {
 		ArrayList<Piece> pieces = new ArrayList<>();
 		for (int i = 0; i < board.length; i++) {
@@ -480,7 +482,11 @@ public class Board {
 		}
 		return pieces;
 	}
-	
+/**
+ * 
+ * @param c - the player
+ * @return how many pieces they still have and their positions
+ */
 	public ArrayList<int[]> getTeamCheckers(char c) {
 		ArrayList<int[]> list = new ArrayList<>();
 		
@@ -496,7 +502,10 @@ public class Board {
 		}
 		return list;
 	}
-	
+/**
+ * 	
+ * @return the player who wins, or a stalemate
+ */
 	public char getWin() {
 		int red = getTeamCheckers('R').size();
 		int black = getTeamCheckers('B').size();
