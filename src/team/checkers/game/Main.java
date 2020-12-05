@@ -1,11 +1,8 @@
 package team.checkers.game;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-
-import javax.swing.ImageIcon;
 
 import team.checkers.board.Board;
 import team.checkers.player.Stats;
