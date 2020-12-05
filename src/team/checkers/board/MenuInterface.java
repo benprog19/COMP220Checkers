@@ -36,7 +36,11 @@ public class MenuInterface {
 
 	final private int width = 650;
 	final private int height = 650;
-
+/**
+ * 
+ * @param board - This is the current board
+ * @param display - This is the window the game is played in when using a GUI
+ */
 	public MenuInterface(Board board, boolean display) {
 		Game game = Main.getGame();
 	
@@ -94,7 +98,13 @@ public class MenuInterface {
 			display(true);
 		}
 	}
-
+/**
+ * This sets the board background
+ * @param i - the row
+ * @param j - the column
+ * @param allColor - this is the winning player
+ * @return what the background of the board should look like
+ */
 	private int[] originalBackgroundColor(int i, int j, char allColor) {
 		int[] colors = new int[3];
 		if (board.pieces()[i][j].isSelected()) {
@@ -164,7 +174,10 @@ public class MenuInterface {
 		}
 		return colors;
 	}
-
+/**
+ * 
+ * @param display - This is the window the GUI version sis played in 
+ */
 	public void display(boolean display) {
 
 		// Create and set up the window.
@@ -174,7 +187,10 @@ public class MenuInterface {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
+/**
+ * This sets up the board at the beginning of the game
+ * @param firstSetup - this is whether or not the game has been started
+ */
 	public void update(boolean firstSetup) {
 		Insets insets = new Insets(0, 0, 0, 0);
 		ImageIcon red = new ImageIcon("content/red.png");
@@ -243,7 +259,12 @@ public class MenuInterface {
 			}
 		}
 	}
-
+/**
+ * This is called when a piece is selected and where it can move.
+ * @param pieces - This is the piece that is clicked
+ * @param i1 - This is the row location of the piece being clicked
+ * @param j1 - This is the column location of the piece being clicked
+ */
 	public void pieceAction(Piece[][] pieces, final int i1, final int j1) {
 		//System.out.println("Action[" + i1 + "," + j1 + "]: clicked : " + Main.getGame().getTurn());
 		Piece piece = pieces[i1][j1]; // piece being clicked
@@ -322,7 +343,10 @@ public class MenuInterface {
 
 		update(false);
 	}
-
+/**
+ * This clears marks off the board
+ * @param pieces - This is what piece/pieces have been selected 
+ */
 	public void clearSelecting(Piece[][] pieces) {
 		for (int i = 0; i < pieces.length; i++) {
 			for (int j = 0; j < pieces.length; j++) {
@@ -336,15 +360,22 @@ public class MenuInterface {
 			}
 		}
 	}
-
+/**
+ * This sets the message
+ * @param message - This is the message that is being set
+ */
 	public void setMessage(String message) {
 		this.message = null;
 	}
-
+/**
+ * This sets the background color of the board
+ */
 	public void setIndicator(Color color) {
 		indicator.setBackground(color);
 	}
-
+	/**
+	 * This gets the set background color of the board
+	 */
 	public JButton getIndicator() {
 		return indicator;
 	}

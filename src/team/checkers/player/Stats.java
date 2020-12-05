@@ -69,7 +69,9 @@ public class Stats implements Serializable {
 	public double getWLRatio() {
 		return (double) wins / (wins + losses);
 	}
-	
+	/**
+	 * This is a method to print a player's win/loss ratio
+	 */
 	@Override
 	public String toString() {
 		return name + ": " + wins + "w, " + losses + "l, " + getWLRatio();

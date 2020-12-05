@@ -17,6 +17,7 @@ public class Main {
 	 * This is the main method where the game is played.
 	 */
 	public static void main(String[] args) {
+		
 		game = new Game();
 		System.out.print("Welcome to Checkers! \n\n"
 				+ "    This project has been developed by\n"
@@ -53,7 +54,11 @@ public class Main {
 	public static Game getGame() {
 		return game;
 	}
-	
+	/**
+	 * This is how you play the game through the console
+	 * @param board - Creates a board
+	 * @param scanner - Creates a scanner to read moves
+	 */
 	private static void consoleGame(Board board, Scanner scanner) {
 		String redTeam = game.getRedPlayer();
 		String blackTeam = game.getBlackPlayer();
@@ -119,7 +124,12 @@ public class Main {
 		game.printStats();
 		scanner.close();
 	}
-	
+	/**
+	 * 
+	 * @param input - The selected piece
+	 * @param jumps - The places the piece could move if there was nothing in it's way
+	 * @return whether the piece selected is a piece that can be moved
+	 */
 	private static boolean validMove(String input, ArrayList<int[]> jumps) {
 		if (input.contains(":") && input.length() == 3) {
 			String[] vals = input.split(":");
@@ -149,7 +159,12 @@ public class Main {
 		}
 		return false;
 	}
-	
+	/**
+	 * 
+	 * @param input - takes in the player's selected move
+	 * @param board - takes in the current board
+	 * @return if the move is valid
+	 */
 	private static boolean validSelect(String input, Board board) {
 		if (input.contains(":") && input.length() == 3) {
 			String[] vals = input.split(":");

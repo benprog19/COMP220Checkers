@@ -16,6 +16,8 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.EOFException;
+
 import team.checkers.board.Board;
 import team.checkers.player.Stats;
 
@@ -28,51 +30,81 @@ public class Game {
 	private Board board;
 	private HashMap<String, Stats> playerStats;
 
+	/**
+	 * This is a constuctor 
+	 * @param board - Takes in an already created board
+	 */
 	public Game(Board board) {
 		this.turn = 0;
 		this.board = board;
 		playerStats = new HashMap<>();
 		readStats(false);
 	}
-
+	/**
+	 * This is the constructor that is called at the beginning of the game to start the game
+	 */
 	public Game() {
 		this.turn = 0;
 		this.playerStats = new HashMap<>();
 		readStats(false);
 	}
-
+/**
+ * This creates a new board based on the last board
+ * @param board - The former board
+ */
 	public void setBoard(Board board) {
 		this.board = board;
 	}
-
+/**
+ * This sets the red player's name
+ * @param name - The player's name
+ */
 	public void setRedPlayer(String name) {
 		this.redPlayer = name;
 		registerPlayer(name);
 	}
-
+/**
+ * This sets the black player's name
+ * @param name - The player's name
+ */
 	public void setBlackPlayer(String name) {
 		this.blackPlayer = name;
 		registerPlayer(name);
 	}
-
+/**
+ * This creates a player's statistics if they did not already have them
+ * @param name - the player's name
+ */
 	public void registerPlayer(String name) {
 		if (!playerStats.containsKey(name)) {
 			playerStats.put(name, new Stats(name, 0, 0));
 		}
 	}
-
+/**
+ * 
+ * @return if it is the red player's turn
+ */
 	public String getRedPlayer() {
 		return redPlayer != null ? redPlayer : "N/A";
 	}
-
+/**
+ * 
+ * @return if it is the black player's turn
+ */
 	public String getBlackPlayer() {
 		return blackPlayer != null ? blackPlayer : "N/A";
 	}
-
+/**
+ * 
+ * @return the turn
+ */
 	public int getTurn() {
 		return turn;
 	}
-
+/**
+ * 
+ * @return The letter of who's turn it is
+ */
 	public char getTurnCharRef() {
 		if (this.turn == 0) {
 			return 'R';
@@ -81,12 +113,18 @@ public class Game {
 		}
 		return 'X';
 	}
-
+/**
+ * This is who has the next turn
+ */
 	public void nextTurn() {
 		this.turn = (turn == 0 ? 1 : 0);
 		this.board.getMenu().setIndicator((turn == 0 ? Color.RED : Color.BLACK));
 	}
-
+/**
+ * 
+ * @param c - a player 
+ * @return who's turn it is
+ */
 	public boolean hasTurn(char c) {
 		if (c == 'R') {
 			return getTurn() == 0;
@@ -95,13 +133,17 @@ public class Game {
 		}
 		return false;
 	}
-
+/**
+ * 
+ * @return a board
+ */
 	public Board getBoard() {
 		return board;
 	}
 /**
- * 
- * @param output - 
+ * This reads the file that contains the statistics and calls a persons former statistics
+ *  to get their overall ratio
+ * @param output - This checks if the player already had statistics
  */
 	@SuppressWarnings("unchecked")
 	public void readStats(boolean output) {
@@ -138,6 +180,8 @@ public class Game {
 		} catch (IOException e) {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (EOFException e) {
+			e.printStackTrace();
 		}
 	}
 /**
@@ -149,7 +193,19 @@ public class Game {
 		if (!dir.exists()) {
 			dir.mkdir();
 		}
-		
+
+//		System.out.println("Saving " + playerStats.size() + " number of stats from HashMap");
+//		Set<String> set = playerStats.keySet();
+//		Iterator<String> iter = set.iterator();
+//		while (iter.hasNext()) {
+//			String userName = iter.next();
+//			Stats stats = playerStats.get(userName);
+//			if (stats != null) {
+//				System.out.println(stats.getName() 
+//						+ " : [" + stats.getWins() + ", " + stats.getLosses() + ", " + stats.getWLRatio() + "]");
+//			}
+//		}
+
 		// write information to file
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
@@ -204,12 +260,15 @@ public class Game {
 			updateStats();
 		}
 	}
-	
+
+	/**
+	 * This is the method to print each player's statistics
+	 */
 	public void printStats() {
 		Stats stats = getStatsFromName(redPlayer);
 		System.out.println(stats.toString());
+		
 		stats = getStatsFromName(blackPlayer);
 		System.out.println(stats.toString());
 	}
-
 }
