@@ -360,21 +360,22 @@ public class MenuInterface {
 			}
 		}
 	}
-/**
- * This sets the message
- * @param message - This is the message that is being set
- */
+	/**
+	 * This sets the message
+	 * @param message - This is the message that is being set; this is not used
+	 */
+	@Deprecated
 	public void setMessage(String message) {
 		this.message = null;
 	}
-/**
- * This sets the background color of the board
- */
+	/**
+	 * This sets the indicator color of the board
+	 */
 	public void setIndicator(Color color) {
 		indicator.setBackground(color);
 	}
 	/**
-	 * This gets the set background color of the board
+	 * This gets the indicator color of the board
 	 */
 	public JButton getIndicator() {
 		return indicator;
